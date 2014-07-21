@@ -5,11 +5,11 @@ DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install debian-archive-
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes upgrade
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install debconf-utils
 
-## Debconf for mysql (empty pass)
+## Debconf for mysql ('root')
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
 
-## Debconf for phpmyadmin (empty pass)
+## Debconf for phpmyadmin ('root')
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/password-confirm password root'
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/app-password-confirm password root'
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/setup-password password root'
