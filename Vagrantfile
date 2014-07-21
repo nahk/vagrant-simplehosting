@@ -57,12 +57,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # information on available options.
 
   config.vm.provision "shell" do |s|
-    s.path = "bootstrap.sh"
+    s.path = "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/bootstrap.sh"
     s.privileged = true
   end
 
-  config.vm.provision "shell" do |s|
-    s.path = "always.sh"
+  config.vm.provision "shell", run: "always" do |s|
+    s.path = "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/always.sh"
     s.privileged = true
   end
 
