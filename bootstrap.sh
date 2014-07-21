@@ -21,7 +21,7 @@ rm -rf /var/www
 ln -fs /vagrant /var/www
 
 echo "Installing bash aliases..." 
-wget -O "~/.bash_aliases" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/bash_aliases"
+wget -O "/home/vagrant/.bash_aliases" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/bash_aliases"
 echo "Installing php settings..." 
 wget -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/php-custom.ini"
 
