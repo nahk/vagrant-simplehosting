@@ -1,2 +1,2 @@
 Test
-<?php echo 'Hellow world!';?>
+<?php echo 'Everything is working.';?>
