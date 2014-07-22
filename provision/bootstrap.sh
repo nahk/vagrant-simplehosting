@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+autoArchi() {
+	if [ -f "/vagrant/composer.json" ] && grep -q '.*"symfony/symfony".*' composer.json
+	then
+		symfony2Archi
+	elif
+}
+
+symfony2Archi() {
+	
+}
+
+
 echo "Installing sources.list..."
 rm -f "/etc/apt/sources.list"
 wget -O "/etc/apt/sources.list" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/sources.list"
@@ -31,4 +43,12 @@ echo "Installing php settings..."
 wget -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/php-custom.ini"
 
 a2enmod rewrite
-service apache2 restart
+
+
+if [ "$1" = "auto" ]
+then
+	autoArchi
+elif [ "$1" = "symfony2" ]
+then
+	symfony2Archi
+fi
