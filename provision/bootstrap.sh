@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
 autoArchi() {
+	echo " -- Auto detect architecture... -- "
 	if [ -f "/vagrant/composer.json" ] && grep -q '.*"symfony/symfony".*' "/vagrant/composer.json"
 	then
+    	echo " -- Symfony2 detected... -- "
 		symfony2Archi
 	fi
 }
 
 symfony2Archi() {
-	echo "Setting Symfony2 architecture..."
+	echo " -- Installing Symfony2 architecture... -- "
 	DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install acl
 	mkdir -p /home/vagrant/.symfony2/cache
 	mkdir -p /home/vagrant/.symfony2/logs
@@ -25,20 +27,20 @@ symfony2Archi() {
 	wget -q -O "/vagrant/web/app_dev.php" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/app_dev.php"
 }
 
-echo "Installing sources.list..."
+echo " -- Installing sources.list... -- "
 rm -f "/etc/apt/sources.list"
 wget -q -O "/etc/apt/sources.list" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/sources.list"
 
+echo " -- Updating System... -- "
 apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install debian-archive-keyring
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes upgrade
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install debconf-utils
 
-## Debconf for mysql ('root')
+echo " -- Installing requirements... -- "
 debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
 debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
 
-## Debconf for phpmyadmin ('root')
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/password-confirm password root'
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/app-password-confirm password root'
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/setup-password password root'
@@ -59,13 +61,14 @@ DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install \
 rm -rf /var/www
 ln -fs /vagrant /var/www
 
-echo "Installing bash aliases..." 
+echo " -- Installing bash aliases... -- " 
 wget -q -O "/home/vagrant/.bash_aliases" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/bash_aliases"
-echo "Installing php settings..." 
+echo " -- Installing php settings... -- " 
 wget -q -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/php-custom.ini"
+ln -s "/etc/php5/mods-available/php-custom.ini" /etc/php5/conf.d/php-custom.ini
 
+echo " -- Enabling apache2 mod_rewrite... -- "
 a2enmod rewrite
-
 
 if [ "$1" = "auto" ]
 then
@@ -74,3 +77,7 @@ elif [ "$1" = "symfony2" ]
 then
 	symfony2Archi
 fi
+
+echo " -- Restarting apache2... -- "
+service apache2 restart
+
