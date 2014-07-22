@@ -14,7 +14,7 @@ symfony2Archi() {
 
 echo "Installing sources.list..."
 rm -f "/etc/apt/sources.list"
-wget -O "/etc/apt/sources.list" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/sources.list"
+wget -O "/etc/apt/sources.list" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/sources.list"
 
 apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install debian-archive-keyring
@@ -47,9 +47,9 @@ rm -rf /var/www
 ln -fs /vagrant /var/www
 
 echo "Installing bash aliases..." 
-wget -O "/home/vagrant/.bash_aliases" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/bash_aliases"
+wget -O "/home/vagrant/.bash_aliases" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/bash_aliases"
 echo "Installing php settings..." 
-wget -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/php-custom.ini"
+wget -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/php-custom.ini"
 
 a2enmod rewrite
 
