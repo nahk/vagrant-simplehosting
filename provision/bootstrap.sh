@@ -8,7 +8,25 @@ autoArchi() {
 }
 
 symfony2Archi() {
-	echo "symfony2 provisioning method..."
+	echo "Setting Symfony2 architecture..."
+	DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install acl
+	mkdir /home/vagrant/.symfony2/cache
+	mkdir /home/vagrant/.symfony2/logs
+	setfacl -R -m u:www-data:rwX -m u:vagrant:rwX cache logs
+	setfacl -dR -m u:www-data:rwX -m u:vagrant:rwX cache logs
+	rm "/etc/apache2/sites-available/default"
+	wget -O "/etc/apache2/sites-available/default" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/symfony-vhost"
+	if [ -f "/vagrant/app/AppKernel.php" ] && ! grep -q '.*/home/vagrant/.*' "/vagrant/app/AppKernel.php"
+	then
+		sed -i '$d' "/vagrant/app/AppKernel.php"
+		wget -O "/tmp/custom-kernel-code" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/custom-kernel-code"
+		cat "/tmp/custom-kernel-code" >> "/vagrant/app/AppKernel.php"		
+	fi
+	if [ -f "/vagrant/web/app_dev.php"]
+	then
+		rm "/vagrant/web/app_dev.php"
+		wget -O "/etc/apache2/sites-available/default" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/app_dev.php"
+	fi
 }
 
 echo "Installing sources.list..."

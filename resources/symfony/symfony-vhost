@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+
+    DocumentRoot /var/www/web
+    ServerName default.dev
+
+    <Directory /var/www/web>
+        AllowOverride All
+        Order Deny,Allow
+        Deny from all
+        Allow from localhost 192.168
+    </Directory>
+
+</VirtualHost>

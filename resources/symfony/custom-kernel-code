@@ -1,0 +1,20 @@
+
+    
+    public function getCacheDir()
+    {
+        if (strpos(__DIR__, "/vagrant") === 0) {
+            return '/home/vagrant/.symfony2/cache/'.$this->environment;
+        } else {
+            return parent::getCacheDir();
+        }
+    }
+    
+    public function getLogDir()
+    {
+        if (strpos(__DIR__, "/vagrant") === 0) {
+            return '/home/vagrant/.symfony2/logs/'.$this->environment;
+        } else {
+            return parent::getLogDir();
+        }
+    }
+}
