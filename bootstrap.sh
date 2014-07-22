@@ -16,7 +16,16 @@ debconf-set-selections <<< 'phpmyadmin phpmyadmin/setup-password password root'
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/admin-pass password root'
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/app-pass password root'
 
-DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install apache2 mysql-client mysql-server php5-common libapache2-mod-php5 php5-cli php5-json php5-mysql php5-mcrypt php5-curl php5-gd php5-xsl php5-xmlrpc php-apc php5-intl php5-xdebug phpmyadmin anacron git
+DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install \
+    apache2 \
+    mysql-client mysql-server \
+    php5-common php5-cli libapache2-mod-php5 php5-mysql \
+    php-apc php5-json php5-mcrypt php5-curl php5-xdebug \
+    php5-gd php5-xsl php5-xmlrpc php5-intl \
+    phpmyadmin  \
+    anacron  \
+    git \
+    vim
 rm -rf /var/www
 ln -fs /vagrant /var/www
 
