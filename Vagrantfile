@@ -47,7 +47,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Provisioning
   config.vm.provision "shell" do |s|
     s.path = "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/provision/bootstrap.sh"
-    s.args = [architecture]
+    s.args = architecture
     s.privileged = true
   end
 

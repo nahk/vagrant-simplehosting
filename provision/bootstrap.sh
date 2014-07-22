@@ -4,7 +4,7 @@ autoArchi() {
 	if [ -f "/vagrant/composer.json" ] && grep -q '.*"symfony/symfony".*' composer.json
 	then
 		symfony2Archi
-	elif
+	fi
 }
 
 symfony2Archi() {
