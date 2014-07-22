@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 autoArchi() {
-	if [ -f "/vagrant/composer.json" ] && grep -q '.*"symfony/symfony".*' composer.json
+	if [ -f "/vagrant/composer.json" ] && grep -q '.*"symfony/symfony".*' "/vagrant/composer.json"
 	then
 		symfony2Archi
 	fi
