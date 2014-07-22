@@ -12,26 +12,22 @@ symfony2Archi() {
 	DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install acl
 	mkdir -p /home/vagrant/.symfony2/cache
 	mkdir -p /home/vagrant/.symfony2/logs
-	setfacl -R -m u:www-data:rwX -m u:vagrant:rwX cache logs
-	setfacl -dR -m u:www-data:rwX -m u:vagrant:rwX cache logs
+	setfacl -R -m u:www-data:rwX -m u:vagrant:rwX /home/vagrant/.symfony2/cache /home/vagrant/.symfony2/logs
+	setfacl -dR -m u:www-data:rwX -m u:vagrant:rwX /home/vagrant/.symfony2/cache /home/vagrant/.symfony2/logs
 	rm -f "/etc/apache2/sites-available/default"
-	wget -O "/etc/apache2/sites-available/default" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/symfony-vhost"
+	wget -q -O "/etc/apache2/sites-available/default" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/symfony-vhost"
 	if [ -f "/vagrant/app/AppKernel.php" ] && ! grep -q '.*/home/vagrant/.*' "/vagrant/app/AppKernel.php"
 	then
 		sed -i '$d' "/vagrant/app/AppKernel.php"
-		wget -O "/tmp/custom-kernel-code" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/custom-kernel-code"
+		wget -q -O "/tmp/custom-kernel-code" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/custom-kernel-code"
 		cat "/tmp/custom-kernel-code" >> "/vagrant/app/AppKernel.php"		
 	fi
-	if [ -f "/vagrant/web/app_dev.php" ]
-	then
-		rm "/vagrant/web/app_dev.php"
-		wget -O "/etc/apache2/sites-available/default" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/app_dev.php"
-	fi
+	wget -q -O "/etc/apache2/sites-available/default" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/app_dev.php"
 }
 
 echo "Installing sources.list..."
 rm -f "/etc/apt/sources.list"
-wget -O "/etc/apt/sources.list" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/sources.list"
+wget -q -O "/etc/apt/sources.list" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/sources.list"
 
 apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install debian-archive-keyring
@@ -64,9 +60,9 @@ rm -rf /var/www
 ln -fs /vagrant /var/www
 
 echo "Installing bash aliases..." 
-wget -O "/home/vagrant/.bash_aliases" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/bash_aliases"
+wget -q -O "/home/vagrant/.bash_aliases" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/bash_aliases"
 echo "Installing php settings..." 
-wget -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/php-custom.ini"
+wget -q -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/php-custom.ini"
 
 a2enmod rewrite
 
