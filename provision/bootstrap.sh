@@ -8,9 +8,8 @@ autoArchi() {
 }
 
 symfony2Archi() {
-	
+	echo "symfony2 provisioning method..."
 }
-
 
 echo "Installing sources.list..."
 rm -f "/etc/apt/sources.list"
