@@ -22,7 +22,7 @@ symfony2Archi() {
 		wget -q -O "/tmp/custom-kernel-code" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/custom-kernel-code"
 		cat "/tmp/custom-kernel-code" >> "/vagrant/app/AppKernel.php"		
 	fi
-	wget -q -O "/etc/apache2/sites-available/default" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/app_dev.php"
+	wget -q -O "/vagrant/web/app_dev.php" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/app_dev.php"
 }
 
 echo "Installing sources.list..."
