@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+echo "Installing sources.list..."
+rm -f "/etc/apt/sources.list"
+wget -O "/etc/apt/sources.list" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/sources.list"
+
 apt-get update
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install debian-archive-keyring
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes upgrade
@@ -15,6 +19,7 @@ debconf-set-selections <<< 'phpmyadmin phpmyadmin/app-password-confirm password 
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/setup-password password root'
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/admin-pass password root'
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/app-pass password root'
+debconf-set-selections <<< 'phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2'
 
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install \
     apache2 \
@@ -34,4 +39,5 @@ wget -O "/home/vagrant/.bash_aliases" "https://raw.githubusercontent.com/CestanG
 echo "Installing php settings..." 
 wget -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/php-custom.ini"
 
+a2enmod rewrite
 service apache2 restart
