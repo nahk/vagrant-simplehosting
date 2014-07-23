@@ -1,0 +1,35 @@
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _expand _complete _ignored _correct _approximate
+zstyle ':completion:*' menu select=0
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle :compinstall filename '/home/tibbo/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+# End of lines configured by zsh-newuser-install
+
+
+PS1=%B[%n]:%b
+RPS1=%B[%~][%T]%b
+
+bindkey ';5D' emacs-backward-word
+bindkey ';5C' emacs-forward-word
+
+alias ll='ls -lh'
+alias la='ls -lah'
+alias ..='cd ..'
+
+alias ne='emacs'
+alias sne='sudo emacs'
+
+alias bigfiles='find . -type f -exec du -h {} + | sort -hr'
+alias sshtds='ssh tibbo@188.165.234.165 -p 65422'
+
+. <(npm completion)
+
