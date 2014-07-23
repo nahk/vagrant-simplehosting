@@ -7,8 +7,10 @@ VAGRANTFILE_API_VERSION = "2"
 ###############################
 # General project settings
 # -----------------------------
-box_name = "chef/debian-7.4"
-box_memory = "1024"
+box_name   = "chef/debian-7.4"
+box_memory = 1024
+box_cpus   = 1
+
 ip_address = "192.168.10.10"
 
 # Project type (available are: "auto", "symfony")
@@ -21,9 +23,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = box_name
 
   config.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--memory", box_memory]
-    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-    v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    v.memory = box_memory
+    v.cpus   = box_cpus
+    # v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    # v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
 
   # Create a private network, which allows host-only access to the machine
