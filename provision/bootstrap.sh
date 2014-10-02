@@ -67,7 +67,8 @@ DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install \
     anacron  \
     git \
     vim \
-    emacs
+    emacs \
+    screen
 rm -rf /var/www
 ln -fs /vagrant /var/www
 
