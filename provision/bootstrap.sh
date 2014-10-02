@@ -28,11 +28,11 @@ symfony2Archi() {
 		cat "/tmp/custom-kernel-code" >> "/vagrant/app/AppKernel.php"		
 	fi
 	wget -q -O "/vagrant/web/app_dev.php" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/app_dev.php"
-	wget -q -O "/vagrant/.gitingore" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/gitignore"
+	wget -q -O "/vagrant/.gitignore" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/gitignore"
 }
 
 defaultArchi() {
-	wget -q -O "/vagrant/.gitingore" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/gitignore"
+	wget -q -O "/vagrant/.gitignore" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/gitignore"
 }
 
 echo " -- Installing sources.list... -- "
