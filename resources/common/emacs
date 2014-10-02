@@ -1,0 +1,55 @@
+(global-hl-line-mode 0)
+(setq standard-indent 4)
+(setq scroll-step 1)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
+
+;; scroll one line at a time (less "jumpy" than defaults)
+    
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+    
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+    
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+  
+(setq scroll-step 1) ;; keyboard scroll one line at a time
+
+;; Enable backup files.
+(setq make-backup-files t)
+
+
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+;; Show line-number in the mode line
+(line-number-mode 1)
+
+;; Show column-number in the mode line
+(column-number-mode 1)
+
+(set-cursor-color "#ffffff")
+
+;; Set region background colour
+(set-face-background 'region "blue")
+
+(set-face-background 'hl-line "cyan")
+(set-face-foreground 'hl-line nil)
+
+;; Set emacs background colour
+(set-background-color "black")
+
+
+
+(setq display-time-day-and-date t
+      display-time-24hr-format t)
+(display-time)
+
+
+(menu-bar-mode -1)
+
+(global-linum-mode 1)
+
+(setq-default truncate-lines t)

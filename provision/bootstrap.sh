@@ -6,6 +6,9 @@ autoArchi() {
 	then
     	echo " -- Symfony2 detected... -- "
 		symfony2Archi
+	else
+		echo " -- Default archi... -- "
+		defaultArchi
 	fi
 }
 
@@ -25,6 +28,11 @@ symfony2Archi() {
 		cat "/tmp/custom-kernel-code" >> "/vagrant/app/AppKernel.php"		
 	fi
 	wget -q -O "/vagrant/web/app_dev.php" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/app_dev.php"
+	wget -q -O "/vagrant/.gitingore" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/gitignore"
+}
+
+defaultArchi() {
+	wget -q -O "/vagrant/.gitingore" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/gitignore"
 }
 
 echo " -- Installing sources.list... -- "
@@ -49,6 +57,7 @@ debconf-set-selections <<< 'phpmyadmin phpmyadmin/mysql/app-pass password root'
 debconf-set-selections <<< 'phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2'
 
 DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install \
+    zsh \
     apache2 \
     mysql-client mysql-server \
     php5-common php5-cli libapache2-mod-php5 php5-mysql \
@@ -57,12 +66,17 @@ DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install \
     phpmyadmin  \
     anacron  \
     git \
-    vim
+    vim \
+    emacs
 rm -rf /var/www
 ln -fs /vagrant /var/www
 
-echo " -- Installing bash aliases... -- " 
-wget -q -O "/home/vagrant/.bash_aliases" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/bash_aliases"
+echo " -- Installing bashrc... -- " 
+wget -q -O "/home/vagrant/.bashrc" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/bashrc"
+echo " -- Installing zshrc... -- " 
+wget -q -O "/home/vagrant/.zshrc" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/zshrc"
+echo " -- Installing emacs conf... -- " 
+wget -q -O "/home/vagrant/.emacs" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/emacs"
 echo " -- Installing php settings... -- " 
 wget -q -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/php-custom.ini"
 ln -s "/etc/php5/mods-available/php-custom.ini" /etc/php5/conf.d/php-custom.ini
