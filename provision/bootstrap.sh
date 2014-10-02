@@ -81,6 +81,7 @@ wget -q -O "/home/vagrant/.emacs" "https://raw.githubusercontent.com/CestanGroup
 echo " -- Installing php settings... -- " 
 wget -q -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/php-custom.ini"
 ln -s "/etc/php5/mods-available/php-custom.ini" /etc/php5/conf.d/php-custom.ini
+cp /vagrant/Vagrantfile /vagrant/Vagrantfile.dist
 
 echo " -- Enabling apache2 mod_rewrite... -- "
 a2enmod rewrite
