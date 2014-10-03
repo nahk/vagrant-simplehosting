@@ -28,7 +28,9 @@ symfony2Archi() {
 		cat "/tmp/custom-kernel-code" >> "/vagrant/app/AppKernel.php"		
 	fi
 	wget -q -O "/vagrant/web/app_dev.php" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/app_dev.php"
+	chown vagrant:vagrant "/vagrant/web/app_dev.php"
 	wget -q -O "/vagrant/.gitignore" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/symfony/gitignore"
+	chown vagrant:vagrant "/vagrant/.gitignore"
 }
 
 defaultArchi() {
@@ -68,20 +70,25 @@ DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install \
     git \
     vim \
     emacs \
-    screen
+    screen \
+    vim
 rm -rf /var/www
 ln -fs /vagrant /var/www
 
 echo " -- Installing bashrc... -- " 
 wget -q -O "/home/vagrant/.bashrc" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/bashrc"
+chown vagrant:vagrant "/home/vagrant/.bashrc"
 echo " -- Installing zshrc... -- " 
 wget -q -O "/home/vagrant/.zshrc" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/zshrc"
+chown vagrant:vagrant "/home/vagrant/.zshrc"
 echo " -- Installing emacs conf... -- " 
 wget -q -O "/home/vagrant/.emacs" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/emacs"
+chown vagrant:vagrant "/home/vagrant/.emacs"
 echo " -- Installing php settings... -- " 
 wget -q -O "/etc/php5/mods-available/php-custom.ini" "https://raw.githubusercontent.com/CestanGroupeNumerique/vagrant-simplehosting/master/resources/common/php-custom.ini"
 ln -s "/etc/php5/mods-available/php-custom.ini" /etc/php5/conf.d/php-custom.ini
-cp /vagrant/Vagrantfile /vagrant/Vagrantfile.dist
+cp "/vagrant/Vagrantfile" "/vagrant/Vagrantfile.dist"
+chown vagrant:vagrant "/vagrant/Vagrantfile.dist"
 
 echo " -- Enabling apache2 mod_rewrite... -- "
 a2enmod rewrite
