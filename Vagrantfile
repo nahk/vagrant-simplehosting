@@ -7,9 +7,10 @@ VAGRANTFILE_API_VERSION = "2"
 ###############################
 # General project settings
 # -----------------------------
-box_name   = "chef/debian-7.4"
-box_memory = 1024
-box_cpus   = 1
+box_name                = "chef/debian-7.4"
+box_memory              = 2048
+box_cpus                = 1
+box_cpu_max_exec_cap    = "100"
 
 ip_address = "192.168.10.10"
 
@@ -25,6 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider "virtualbox" do |v|
     v.memory = box_memory
     v.cpus   = box_cpus
+    v.customize ["modifyvm", :id, "--cpuexecutioncap", box_cpu_max_exec_cap]
     v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
     v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
   end
