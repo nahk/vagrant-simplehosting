@@ -70,8 +70,7 @@ DEBIAN_FRONTEND=noninteractive apt-get --yes --force-yes install \
     git \
     vim \
     emacs \
-    screen \
-    vim
+    screen
 rm -rf /var/www
 ln -fs /vagrant /var/www
 
